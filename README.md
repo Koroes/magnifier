@@ -1,2 +1,3 @@
 # magnifier
-accord to use html to complete the magnifier
+use html to complete the magnifier
+
