@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="magnifier.css">
+</head>
+<body>
+    <div style="border: 1px solid red;width: 400px;height: 300px;position: relative;left: 100px;
+    top: 100px;" id="fa">
+    <div class="position_box" id="pb"></div>
+    <img src="./images/3.jpg" style="position: absolute;width: 400px;height: 300px;">
+    </div>
+    <div id="b_box" >
+        <img src="./images/3.jpg" style="position: absolute;" id="b_img">
+    </div>
+</body>
+<script>
+    window.onload=function(){
+        var posionbox=document.getElementById('pb')
+        var f=document.getElementById('fa')
+        var b_im=document.getElementById('b_img')
+        var bbox=document.getElementById('b_box')
+        var maxmol=parseInt(f.style.width)-parseInt(posionbox.offsetWidth)
+        var maxmot= parseInt(f.style.height)-parseInt(posionbox.offsetHeight)
+        var sradio=parseFloat((parseInt(b_im.offsetHeight)-parseInt(bbox.offsetHeight)+10)/(parseInt(f.offsetHeight)-parseInt(posionbox.offsetHeight))).toFixed(2)
+        var hradio=parseFloat((parseInt(b_im.offsetWidth)-parseInt(bbox.offsetWidth)+10)/(parseInt(f.offsetWidth)-parseInt(posionbox.offsetWidth))).toFixed(2)
+        document.onmouseup=function(){
+            document.onmousemove=null;
+        }
+        f.onmouseenter=function(){
+            posionbox.style.display = "block";
+        }
+        posionbox.onmousedown=function(event){
+            event=event||window.event
+            var ol=event.clientX-posionbox.offsetLeft
+            var ot=event.clientY-posionbox.offsetTop
+            posionbox.style.opacity='0.3'
+            document.onmousemove=function(e){
+            event=e||window.event
+            var left=event.clientX
+            var top=event.clientY
+             posionbox.style.left=Math.min(parseInt(left-ol),parseInt(maxmol))+'px'
+             posionbox.style.top=Math.min((top-ot),parseInt(maxmot))+'px'
+            //  b_im.style.top=parseInt(parseInt(posionbox.style.top)*radio)+'px'
+             if(parseInt(left-ol)<0){
+                posionbox.style.left=0+'px'
+                
+            }
+            if(parseInt(top-ot)<0){
+                posionbox.style.top=0+'px'
+            }
+         
+            b_im.style.left=-parseInt(parseInt(posionbox.style.left)*hradio)+'px'
+            b_im.style.top=-parseInt(parseInt(posionbox.style.top)*sradio)+'px'
+
+
+        }
+        }
+    }
+</script>
+</html>
